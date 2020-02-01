@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import client from '../../modules/feathers';
+import React from "react";
+import Board from "../Board";
 
 const Application = () => {
-    return (
-        <h1>Select a room</h1>
-    )
+  return (
+    <>
+      <h1>Select a room</h1>
+      <Board />
+    </>
+  );
 };
 
 export default Application;

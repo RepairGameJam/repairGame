@@ -12,7 +12,6 @@ const MainScreen = () => {
         Create Game
       </button>
       <form>
-        <input></input>
         <button className="btn" type="submit">
           JOIN GAME
         </button>
