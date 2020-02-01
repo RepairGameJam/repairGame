@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import Game from './containers/Game';
 import reducer from './reducers';
 import * as serviceWorker from './serviceWorker';
-import Application from './components/Application/index';
-
+import MainScreen from './components/MainScreen';
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducer /* preloadedState, */,
@@ -17,8 +15,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Application />
-    <Game />
+    <MainScreen />
   </Provider>,
   document.getElementById('root')
 );
