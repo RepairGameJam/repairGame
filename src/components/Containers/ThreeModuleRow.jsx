@@ -8,15 +8,12 @@ const Row = styled.div`
   justify-content: center;
 `;
 
-const ThreeModuleRow = ({ modules = [] }) => {
-  return (
-   'mod three'Row>
-        {modules.map(Mod => (
-          <Mod />
-        ))}
-      </Row>
-    </>
-  );
-};
+const ThreeModuleRow = ({ modules = [] }) => (
+  <Row>
+    {modules.map(Mod => (
+      <Mod />
+    ))}
+  </Row>
+);
 
 export default ThreeModuleRow;
