@@ -1,9 +1,7 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import "./index.scss";
 
 const MainScreen = () => {
-  console.log('Start Game');
-
   const createRoom = () => {};
 
   const joinRoom = () => {};
@@ -11,11 +9,14 @@ const MainScreen = () => {
   return (
     <div className="container">
       <button className="btn" type="button">
-        START GAME
+        Create Game
       </button>
-      <button className="btn" type="button">
-        JOIN GAME
-      </button>
+      <form>
+        <input></input>
+        <button className="btn" type="submit">
+          JOIN GAME
+        </button>
+      </form>
     </div>
   );
 };
