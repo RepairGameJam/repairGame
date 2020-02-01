@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Canvas from './components/Canvas';
+import Main from './components/MainScreen/index';
 
 const App = ({ message }) => (
   <div className="App">
-    <h1>{message}</h1>
-    <Canvas />
+    <Main />
   </div>
 );
 

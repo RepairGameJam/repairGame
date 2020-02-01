@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import App from './App';
 import Game from './containers/Game';
 import reducer from './reducers';
 import * as serviceWorker from './serviceWorker';
+import Application from './components/Application/index';
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
@@ -17,6 +17,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
+    <Application />
     <Game />
   </Provider>,
   document.getElementById('root')
