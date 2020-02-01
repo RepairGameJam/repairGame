@@ -9,7 +9,7 @@ const Layout = styled.div`
   flex-direction: row;
   font-weight: bold;
   text-align: center;
-  height: 100vh;s
+  height: 100vh;
 `;
 
 const Application = ({ id = 1337 }) => {
