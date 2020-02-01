@@ -1,22 +1,43 @@
-import React from "react";
-import "./index.scss";
+import React, { useEffect, useState } from 'react';
+import client from '../../modules/feathers';
+import './index.scss';
 
 const MainScreen = () => {
-  const createRoom = () => {};
+  const [_rooms, setRooms] = useState([]);
 
-  const joinRoom = () => {};
+  const roomService = client.service('room');
+
+  useEffect(() => {
+    roomService.on('created', room => setRooms(_rooms.concat(room)));
+  }, []);
+
+  const createRoom = () => {
+    roomService.create({ name: `(╯°□°)╯ CREATE` });
+    roomService.on('status', (data, error) => {
+      if (error) console.log('error', error);
+      console.log('data', JSON.parse(data));
+    });
+    setRooms(_rooms.concat('room'));
+  };
+
+  const joinRoom = () => {
+    roomService.emit('join', { roomid: 'on the client service' });
+  };
 
   return (
     <div className="container">
-      <button className="btn" type="button">
-        Create Game
+      <span>{JSON.stringify(_rooms)}</span>
+      <button className="btn" type="button" onClick={createRoom}>
+        START GAME
       </button>
-      <form>
-        <input></input>
-        <button className="btn" type="submit">
-          JOIN GAME
-        </button>
-      </form>
+      <div className="formContainer">
+        <form>
+          <input />
+          <button className="btn formbtn" type="submit">
+            JOIN GAME
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

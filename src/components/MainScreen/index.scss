@@ -11,3 +11,14 @@
   width: 400px;
   position: relative;
 }
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.formbtn {
+  height: 20px;
+  width: 200px;
+}
