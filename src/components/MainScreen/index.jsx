@@ -4,24 +4,35 @@ import './index.scss';
 
 const MainScreen = () => {
   const [_rooms, setRooms] = useState([]);
+  const [_room, setRoom] = useState('');
 
   const roomService = client.service('room');
 
-  useEffect(() => {
-    roomService.on('created', room => setRooms(_rooms.concat(room)));
-  }, []);
+  // useEffect(() => {
+  //   roomService.on('created', room => setRooms(_rooms.concat(room)));
+  // }, []);
 
   const createRoom = () => {
-    roomService.create({ name: `(╯°□°)╯ CREATE` });
+    roomService.create({ name: `CREATE (╯°□°)╯ ` }).then(res => {
+      setRooms(res);
+      console.log('response from CREATE', res);
+    });
+
     roomService.on('status', (data, error) => {
       if (error) console.log('error', error);
       console.log('data', JSON.parse(data));
     });
-    setRooms(_rooms.concat('room'));
   };
 
-  const joinRoom = () => {
-    roomService.emit('join', { roomid: 'on the client service' });
+  // const { roomCode } = _room;
+
+  const joinRoom = code => {
+    console.log('⚡: MainScreen -> code', code);
+    console.log('room', _room);
+    // roomService.emit('join', { roomid: 'on the client service' });
+    roomService.create({ roomCode: code }).then(res => {
+      setRooms(res);
+    });
   };
 
   return (
@@ -32,9 +43,10 @@ const MainScreen = () => {
       </button>
       <div className="formContainer">
         <form>
-          <input />
-          <button className="btn formbtn" type="submit">
-            JOIN GAME
+          <label>Room Code</label>
+          <input type="text" onChange={v => setRoom(v.target.value)} />
+          <button type="button" className="btn formbtn" onClick={() => joinRoom(_room)}>
+            JOIN
           </button>
         </form>
       </div>
