@@ -30,15 +30,14 @@ const MainScreen = () => {
       <button className="btn" type="button" onClick={createRoom}>
         START GAME
       </button>
-      <button className="btn" type="button" onClick={joinRoom}>
-        JOIN GAME
-      </button>
-      <form>
-        <input />
-        <button className="btn" type="submit">
-          JOIN GAME
-        </button>
-      </form>
+      <div className="formContainer">
+        <form>
+          <input />
+          <button className="btn formbtn" type="submit">
+            JOIN GAME
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
