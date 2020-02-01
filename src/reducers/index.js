@@ -1,9 +1,10 @@
-const initialState = {
-  message: `It's easy to integrate React and Redux, isn't it?`,
-};
+import { combineReducers } from "redux";
+import clientReducer from "./clientReducer";
+import gameReducer from "./gameReducer";
 
-function reducer(state = initialState) {
-  return state;
-}
+const rootReducer = combineReducers({
+  game: gameReducer,
+  client: clientReducer
+});
 
-export default reducer;
+export default rootReducer;
