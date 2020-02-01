@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Board from '../Board';
 import Content from './content/Content';
 import SideBar from './sidebar/SideBar';
 
@@ -19,12 +20,13 @@ const Application = ({ id = 1337 }) => {
     <Layout>
       <SideBar />
       <Content />
+      <Board />
     </Layout>
   );
 };
 
 Application.propTypes = {
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
 };
 
 export default Application;
