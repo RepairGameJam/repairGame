@@ -23,7 +23,7 @@ export const addScoreAction = score => ({
     score
 })
 
-const gameReducer = (state, action) => {
+const gameReducer = (state = initialState, action) => {
     switch(action.type) {
         case START:
             return { 
