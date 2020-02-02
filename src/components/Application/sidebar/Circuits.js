@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
@@ -26,12 +26,22 @@ const PieceContainer = styled.div`
 `;
 
 const Piece = ({ pieceType, color, content }) => {
+  const pickup = useMemo(() => new Audio('/audio/PICKUP.mp3'), []);
+  const correct = useMemo(() => new Audio('/audio/CORRECT.mp3'), []);
+  const incorrect = useMemo(() => new Audio('/audio/INCORRECT.mp3'), []);
+
   const [{ opacity }, dragRef] = useDrag({
     item: { type: pieceType },
+    end: (item, monitor) => {
+      if (monitor.didDrop()) {
+        correct.play();
+        return;
+      }
+      incorrect.play();
+    },
     collect: monitor => {
       if (monitor.isDragging()) {
-        const test = new Audio('/audio/PICKUP.mp3');
-        test.play();
+        pickup.play();
       }
       return {
         opacity: monitor.isDragging() ? 0.5 : 1,
