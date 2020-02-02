@@ -28,6 +28,13 @@ const Module = ({ pieceName, color, text }) => {
     dispatch(addPieceAction(pieceType));
   }, []);
 
+  const requiredPieces = useSelector(state => state.game.requiredPieces);
+
+  // Execute some altered asset state
+  if (!requiredPieces.includes(pieceName)) {
+    color = 'black';
+  }
+
   return (
     <Asset color={color} onClick={isMatch}>
       <h3>{text}</h3>
@@ -35,8 +42,8 @@ const Module = ({ pieceName, color, text }) => {
   );
 };
 
-export const Module1 = () => <Module pieceName="triangle" color="aquamarine" text="Module 1" />;
-export const Module2 = () => <Module pieceName="square" color="salmon" text="Module 2" />;
-export const Module3 = () => <Module pieceName="circle" color="tomato" text="Module 3" />;
-export const Module4 = () => <Module pieceName="ruby" color="goldenrod" text="Module 4" />;
-export const Module5 = () => <Module pieceName="python" color="olive" text="Module 5" />;
+export const Module1 = <Module key="triangle" pieceName="triangle" color="aquamarine" text="Module 1" />;
+export const Module2 = <Module key="square" pieceName="square" color="salmon" text="Module 2" />;
+export const Module3 = <Module key="circle" pieceName="circle" color="tomato" text="Module 3" />;
+export const Module4 = <Module key="ruby" pieceName="ruby" color="goldenrod" text="Module 4" />;
+export const Module5 = <Module key="python" pieceName="python" color="olive" text="Module 5" />;

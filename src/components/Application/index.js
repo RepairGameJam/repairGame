@@ -16,23 +16,18 @@ const Layout = styled.div`
   height: 100vh;
 `;
 
-const Application = ({ id = 1337 }) => {
+const Application = () => {
   // id of a joined room
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(startGameAction('level1'));
   }, []);
-  if (!id) return <div>Should return to Main Screen</div>;
   return (
     <Layout>
       <SideBar />
       <Content />
     </Layout>
   );
-};
-
-Application.propTypes = {
-  id: PropTypes.number.isRequired,
 };
 
 export default Application;

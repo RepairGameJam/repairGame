@@ -10,11 +10,7 @@ const Row = styled.div`
 
 const TwoModuleRow = ({ modules = [] }) => (
   <>
-    <Row>
-      {modules.map(Mod => (
-        <Mod />
-      ))}
-    </Row>
+    <Row>{modules}</Row>
   </>
 );
 
