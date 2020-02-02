@@ -1,18 +1,15 @@
-import { moduleMap } from './Modules';
-
-const { triangle, square, circle, ruby, python } = moduleMap;
 const levels = {
   level1: {
-    TopRow: [triangle, square],
-    BottomRow: [circle, ruby, python],
+    TopRow: 3,
+    BottomRow: 4,
   },
   level2: {
-    TopRow: [triangle],
-    BottomRow: [circle],
+    TopRow: 3,
+    BottomRow: 2,
   },
   level3: {
-    TopRow: [square, triangle, ruby],
-    BottomRow: [circle, python],
+    TopRow: 4,
+    BottomRow: 3,
   },
 };
 

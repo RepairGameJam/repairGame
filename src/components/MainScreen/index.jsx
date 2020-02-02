@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
@@ -23,8 +23,8 @@ const roomService = client.service('room');
 
 const MainScreen = () => {
   const dispatch = useDispatch();
-  const setRoom = newRoom => dispatch(setGameFromServer(newRoom));
-  const setUser = newUserID => dispatch(setUserID(newUserID));
+  const setRoom = useCallback(newRoom => dispatch(setGameFromServer(newRoom)));
+  const setUser = useCallback(newUserID => dispatch(setUserID(newUserID)));
   const room = useSelector(state => state.game);
   const userID = useSelector(state => state.game.userID);
 
