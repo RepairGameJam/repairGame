@@ -11,7 +11,7 @@ const Asset = styled.div`
   background-color: ${props => props.color};
 `;
 
-const Module = ({ pieceName, color, text }) => {
+export const Module = ({ color, pieceName }) => {
   const selectedPiece = useSelector(state => state.game.selectedPiece);
   const pieceType = PIECE_TYPES[pieceName];
   const dispatch = useDispatch();
@@ -24,10 +24,6 @@ const Module = ({ pieceName, color, text }) => {
     }
   };
 
-  useEffect(() => {
-    dispatch(addPieceAction(pieceType));
-  }, []);
-
   const requiredPieces = useSelector(state => state.game.requiredPieces);
 
   // Execute some altered asset state
@@ -35,15 +31,20 @@ const Module = ({ pieceName, color, text }) => {
     color = 'black';
   }
 
+  useEffect(() => {
+    dispatch(addPieceAction(pieceType));
+  }, []);
+
   return (
     <Asset color={color} onClick={isMatch}>
-      <h3>{text}</h3>
+      <h3>{pieceName}</h3>
     </Asset>
   );
 };
-
-export const Module1 = <Module key="triangle" pieceName="triangle" color="aquamarine" text="Module 1" />;
-export const Module2 = <Module key="square" pieceName="square" color="salmon" text="Module 2" />;
-export const Module3 = <Module key="circle" pieceName="circle" color="tomato" text="Module 3" />;
-export const Module4 = <Module key="ruby" pieceName="ruby" color="goldenrod" text="Module 4" />;
-export const Module5 = <Module key="python" pieceName="python" color="olive" text="Module 5" />;
+export const moduleMap = {
+  triangle: { color: 'aquamarine', key: 'triangle', pieceName: 'triangle' },
+  square: { color: 'salmon', key: 'square', pieceName: 'square' },
+  circle: { color: 'tomato', key: 'circle', pieceName: 'circle' },
+  ruby: { color: 'goldenrod', key: 'ruby', pieceName: 'ruby' },
+  python: { color: 'olive', key: 'python', pieceName: 'python' },
+};

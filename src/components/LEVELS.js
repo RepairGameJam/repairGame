@@ -1,12 +1,18 @@
-import React from 'react';
-import { Module1, Module2, Module3, Module4, Module5 } from './Modules';
-import TwoModuleRow from './Containers/TwoModuleRow';
-import ThreeModuleRow from './Containers/ThreeModuleRow';
+import { moduleMap } from './Modules';
 
+const { triangle, square, circle, ruby, python } = moduleMap;
 const levels = {
   level1: {
-    TopRow: () => <TwoModuleRow modules={[Module1, Module2]} />,
-    BottomRow: () => <ThreeModuleRow modules={[Module3, Module4, Module5]} />,
+    TopRow: [triangle, square],
+    BottomRow: [circle, ruby, python],
+  },
+  level2: {
+    TopRow: [triangle],
+    BottomRow: [circle],
+  },
+  level3: {
+    TopRow: [square, triangle, ruby],
+    BottomRow: [circle, python],
   },
 };
 

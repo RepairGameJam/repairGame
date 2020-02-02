@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import LEVELS from '../../LEVELS';
+import { Module } from '../../Modules';
 
 const BoardWrapper = styled.div`
   flex-grow: 9;
@@ -12,20 +13,20 @@ const BoardWrapper = styled.div`
   border-width: 5px;
 `;
 
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Board = () => {
   const level = useSelector(state => state.game.level);
   const { TopRow, BottomRow } = LEVELS[level] || {};
-
-  const TopComponent = TopRow || (() => <div />);
-  const BottomComponent = BottomRow || (() => <div />);
   return (
     <BoardWrapper>
-      {level ? (
-        <>
-          <TopComponent />
-          <BottomComponent />
-        </>
-      ) : null}
+      <Row>{TopRow && TopRow.map(item => <Module {...item} />)}</Row>
+      <Row>{BottomRow && BottomRow.map(item => <Module {...item} />)}</Row>
     </BoardWrapper>
   );
 };
