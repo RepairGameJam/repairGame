@@ -4,7 +4,7 @@ const initialState = {
   players: {},
   state: 'lobby',
   level: null,
-
+  selectedPiece: '',
   score: 0,
   requiredPieces: [],
 };
@@ -14,6 +14,8 @@ const SYNCHRONIZE = 'SYNCHRONIZE';
 const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
 const ADD_SCORE = 'ADD_SCORE';
+const SELECT_PIECE = 'SELECT_PIECE';
+const MATCH_PIECE = 'MATCH_PIECE';
 
 export const setUserID = userID => ({
   type: PLAYER_ID,
@@ -38,6 +40,21 @@ export const addPieceAction = piece => ({
 export const addScoreAction = score => ({
   type: ADD_SCORE,
   score,
+});
+
+export const selectPieceAction = piece => ({
+  type: SELECT_PIECE,
+  piece,
+});
+export const matchPieceAction = (pieceType, score) => ({
+  type: MATCH_PIECE,
+  pieceType,
+  score,
+});
+
+export const PieceAction = piece => ({
+  type: MATCH_PIECE,
+  piece,
 });
 
 const gameReducer = (state = initialState, action) => {
@@ -68,6 +85,19 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         requiredPieces: [...state.requiredPieces, action.piece],
       };
+    case SELECT_PIECE:
+      return {
+        ...state,
+        selectedPiece: action.piece,
+      };
+    case MATCH_PIECE:
+      return {
+        ...state,
+        selectedPiece: '',
+        requiredPieces: state.requiredPieces.filter(piece => piece !== action.pieceType),
+        score: state.score + action.score,
+      };
+
     default:
       return state;
   }

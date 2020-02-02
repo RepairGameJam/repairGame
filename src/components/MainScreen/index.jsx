@@ -4,6 +4,7 @@ import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
 
 import client from '../../modules/feathers';
 import './index.scss';
+// import Application from '../Application';
 
 const genUserId = (prefix = '') => {
   let result = '';
