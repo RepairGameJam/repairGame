@@ -21,11 +21,22 @@ const Header = styled.h3`
 const PieceContainer = styled.div`
   width: 100px;
   height: 100px;
-  background-color: ${props => props.color};
+  background-image: url(${props => props.imageUrl});
+  background-repeat: no-repeat;
+  background-position: center;
   user-select: none;
 `;
 
-const Piece = ({ pieceType, color, content }) => {
+const PieceColumn = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Piece = ({ pieceType, imageUrl }) => {
   const [{ opacity }, dragRef] = useDrag({
     item: { type: pieceType },
     collect: monitor => ({
@@ -33,11 +44,7 @@ const Piece = ({ pieceType, color, content }) => {
     }),
   });
 
-  return (
-    <PieceContainer style={{ opacity }} color={color} ref={dragRef}>
-      {content}
-    </PieceContainer>
-  );
+  return <PieceContainer style={{ opacity }} imageUrl={imageUrl} ref={dragRef} />;
 };
 
 const Circuits = () => {
@@ -47,12 +54,14 @@ const Circuits = () => {
   return (
     <CircuitsWrapper>
       <Header>Circuit Parts</Header>
-      {level
-        ? requiredPieces.map(pieceType => {
-            const piece = PIECES[pieceType];
-            return <Piece {...piece} key={pieceType} />;
-          })
-        : null}
+      <PieceColumn>
+        {level
+          ? requiredPieces.map(pieceType => {
+              const piece = PIECES[pieceType];
+              return <Piece {...piece} key={pieceType} />;
+            })
+          : null}
+      </PieceColumn>
     </CircuitsWrapper>
   );
 };

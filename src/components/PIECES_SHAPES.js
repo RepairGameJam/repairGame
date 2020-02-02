@@ -9,28 +9,23 @@ export const PIECE_TYPES = {
 const PIECES = {
   [PIECE_TYPES.triangle]: {
     pieceType: PIECE_TYPES.triangle,
-    color: 'orange',
-    content: 'Piece 1 Triangle',
+    imageUrl: 'pieces/master-chip-1.svg',
   },
   [PIECE_TYPES.square]: {
     pieceType: PIECE_TYPES.square,
-    color: 'lightpink',
-    content: 'Piece 2 square',
+    imageUrl: 'pieces/master-chip-2.svg',
   },
   [PIECE_TYPES.circle]: {
     pieceType: PIECE_TYPES.circle,
-    color: 'forestgreen',
-    content: 'Piece 3 circle',
+    imageUrl: 'pieces/master-chip-3.svg',
   },
   [PIECE_TYPES.ruby]: {
     pieceType: PIECE_TYPES.ruby,
-    color: 'darkorchid',
-    content: 'Piece 4 ruby',
+    imageUrl: 'pieces/master-chip-4.svg',
   },
   [PIECE_TYPES.python]: {
     pieceType: PIECE_TYPES.python,
-    color: 'darkorange',
-    content: 'Piece 5 python',
+    imageUrl: 'pieces/master-chip-5.svg',
   },
 };
 
