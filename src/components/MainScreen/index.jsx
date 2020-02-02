@@ -2,42 +2,61 @@ import React, { useEffect, useState } from 'react';
 import client from '../../modules/feathers';
 import './index.scss';
 
-const MainScreen = () => {
-  const [_rooms, setRooms] = useState([]);
+const genUserId = (prefix = '') => {
+  let result = '';
+  const uniqueLength = 30;
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz123456789';
+  for (let i = 0; i < uniqueLength; i += 1) {
+    result += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return `${prefix}${result}`;
+};
 
-  const roomService = client.service('room');
+const roomService = client.service('room');
+
+const MainScreen = () => {
+  const [room, setRoom] = useState('');
+  const [userID, setUserID] = useState('');
 
   useEffect(() => {
-    roomService.on('created', room => setRooms(_rooms.concat(room)));
-  }, []);
+    if (!userID) {
+      setUserID(genUserId());
+    }
+  }, [userID]);
 
-  const createRoom = () => {
-    roomService.create({ name: `(╯°□°)╯ CREATE` });
+  const createRoomAndJoin = () => {
+    roomService.create({ userID }).then(res => {
+      setRoom(res);
+      console.log('response from CREATE', res);
+    });
+
     roomService.on('status', (data, error) => {
       if (error) console.log('error', error);
-      console.log('data', JSON.parse(data));
+      setRoom(data);
+      console.log('data', data);
     });
-    setRooms(_rooms.concat('room'));
   };
 
-  const joinRoom = () => {
-    roomService.emit('join', { roomid: 'on the client service' });
+  const upadateScore = () => {
+    roomService.patch(room.id, { players: { [userID]: { score: 100 } } });
   };
 
   return (
     <div className="container">
-      <span>{JSON.stringify(_rooms)}</span>
-      <button className="btn" type="button" onClick={createRoom}>
+      <div>
+        {room &&
+          Object.keys(room.players).map(playerId => (
+            <div key={playerId}>
+              {playerId} - {room.players[playerId].score}
+            </div>
+          ))}
+      </div>
+      <button className="btn" type="button" onClick={createRoomAndJoin}>
         START GAME
       </button>
-      <div className="formContainer">
-        <form>
-          <input />
-          <button className="btn formbtn" type="submit">
-            JOIN GAME
-          </button>
-        </form>
-      </div>
+      <button className="btn" type="button" onClick={upadateScore}>
+        set my score
+      </button>
     </div>
   );
 };
