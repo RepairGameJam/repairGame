@@ -2,54 +2,61 @@ import React, { useEffect, useState } from 'react';
 import client from '../../modules/feathers';
 import './index.scss';
 
+const genUserId = (prefix = '') => {
+  let result = '';
+  const uniqueLength = 30;
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz123456789';
+  for (let i = 0; i < uniqueLength; i += 1) {
+    result += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return `${prefix}${result}`;
+};
+
 const MainScreen = () => {
-  const [_rooms, setRooms] = useState([]);
-  const [_room, setRoom] = useState('');
+  const [room, setRoom] = useState('');
+  const [userID, setUserID] = useState('');
+
+  useEffect(() => {
+    if (!userID) {
+      setUserID(genUserId());
+    }
+  }, [userID]);
 
   const roomService = client.service('room');
 
-  // useEffect(() => {
-  //   roomService.on('created', room => setRooms(_rooms.concat(room)));
-  // }, []);
-
-  const createRoom = () => {
-    roomService.create({ name: `CREATE (╯°□°)╯ ` }).then(res => {
-      setRooms(res);
+  const createRoomAndJoin = () => {
+    roomService.create({ userID }).then(res => {
+      setRoom(res);
       console.log('response from CREATE', res);
     });
 
     roomService.on('status', (data, error) => {
       if (error) console.log('error', error);
-      console.log('data', JSON.parse(data));
+      setRoom(data);
+      console.log('data', data);
     });
   };
 
-  // const { roomCode } = _room;
-
-  const joinRoom = code => {
-    console.log('⚡: MainScreen -> code', code);
-    console.log('room', _room);
-    // roomService.emit('join', { roomid: 'on the client service' });
-    roomService.create({ roomCode: code }).then(res => {
-      setRooms(res);
-    });
+  const upadateScore = () => {
+    roomService.patch(room.id, { players: { [userID]: { score: 100 } } });
   };
 
   return (
     <div className="container">
-      <span>{JSON.stringify(_rooms)}</span>
-      <button className="btn" type="button" onClick={createRoom}>
+      <div>
+        {room &&
+          Object.keys(room.players).map(playerId => (
+            <div key={playerId}>
+              {playerId} - {room.players[playerId].score}
+            </div>
+          ))}
+      </div>
+      <button className="btn" type="button" onClick={createRoomAndJoin}>
         START GAME
       </button>
-      <div className="formContainer">
-        <form>
-          <label>Room Code</label>
-          <input type="text" onChange={v => setRoom(v.target.value)} />
-          <button type="button" className="btn formbtn" onClick={() => joinRoom(_room)}>
-            JOIN
-          </button>
-        </form>
-      </div>
+      <button className="btn" type="button" onClick={upadateScore}>
+        set my score
+      </button>
     </div>
   );
 };
