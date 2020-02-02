@@ -10,7 +10,6 @@ const initialState = {
   players: {},
   state: 'lobby',
   level: null,
-  selectedPiece: '',
   score: 0,
   requiredPieces: [],
   playingMusic: false,
@@ -21,7 +20,6 @@ const PLAYER_ID = 'PLAYER_ID';
 const SYNCHRONIZE = 'SYNCHRONIZE';
 const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
-const SELECT_PIECE = 'SELECT_PIECE';
 const MATCH_PIECE = 'MATCH_PIECE';
 
 export const setUserID = userID => ({
@@ -44,10 +42,6 @@ export const addPieceAction = piece => ({
   piece,
 });
 
-export const selectPieceAction = piece => ({
-  type: SELECT_PIECE,
-  piece,
-});
 export const matchPieceAction = (pieceType, score) => ({
   type: MATCH_PIECE,
   pieceType,
@@ -75,7 +69,7 @@ const gameReducer = (state = initialState, action) => {
         action.game.playingMusic = true;
         action.game.lobbyMusic = false;
       }
-      if (action.game.state === 'levelComplete' && state.state === 'playing') {
+      if ((action.game.state === 'levelComplete' || action.game.state === 'complete') && state.state === 'playing') {
         action.game.score = 0;
         action.game.requiredPieces = [];
       }
@@ -100,11 +94,7 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         requiredPieces: [...state.requiredPieces, action.piece],
       };
-    case SELECT_PIECE:
-      return {
-        ...state,
-        selectedPiece: action.piece,
-      };
+
     case MATCH_PIECE: {
       const requiredPieces = state.requiredPieces.filter(piece => piece !== action.pieceType);
       const update = {
@@ -121,9 +111,8 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         state: requiredPieces.length === 0 ? 'levelComplete' : state.state,
-        selectedPiece: '',
         requiredPieces,
-        score: state.score + action.score,
+        score: requiredPieces.length === 0 ? 0 : state.score + action.score,
       };
     }
     default:
