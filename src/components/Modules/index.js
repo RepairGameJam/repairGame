@@ -42,7 +42,7 @@ export const Module = ({ imageUrl, pieceName, posX, posY }) => {
 
   // Execute some altered asset state
   if (!requiredPieces.includes(pieceName)) {
-    // color = 'black';
+    imageUrl = imageUrl.replace('sockets', 'pieces').replace('socket', 'chip');
   }
 
   useEffect(() => {
