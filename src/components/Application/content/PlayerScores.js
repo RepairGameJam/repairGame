@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const Scoreboard = styled.div`
   display: flex;
@@ -20,24 +20,22 @@ const PlayerTag = styled.p`
   text-align: center;
 `;
 
-const PlayerScores = ({ scores = [{ name: 'J', score: 100 }] }) => {
-  let topScores = scores.map( (x) => x );
-  topScores.sort((a,b) => b.score - a.score);
-  topScores = topScores.slice(0, 3);
+const PlayerScores = () => {
+  const players = useSelector(state => state.game.players);
+  const topScores = Object.keys(players).map(key => ({ name: key, score: players[key].score }));
+  topScores.sort((a, b) => b.score - a.score);
+  const finalTopScores = topScores.slice(0, 3);
   return (
     <Scoreboard>
-        {topScores.map(user => (
+      {finalTopScores.map(user => (
         <Player key={user.name}>
-            <PlayerTag>
+          <PlayerTag>
             {user.name}:{user.score}
-            </PlayerTag>
+          </PlayerTag>
         </Player>
-        ))}
+      ))}
     </Scoreboard>
-  );}
-
-PlayerScores.propTypes = {
-  scores: PropTypes.array.isRequired,
+  );
 };
 
 export default PlayerScores;
