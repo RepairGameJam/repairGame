@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createGlobalStyle } from 'styled-components';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -13,8 +14,20 @@ const store = createStore(
 );
 /* eslint-enable */
 
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: "8Bit";
+    src: url("/8bit.otf");
+  }
+
+  body {
+    font-family: '8Bit';
+  }
+`;
+
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <MainScreen />
   </Provider>,
   document.getElementById('root')
