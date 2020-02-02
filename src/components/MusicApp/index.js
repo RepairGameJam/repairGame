@@ -31,7 +31,7 @@ const MusicApp = () => {
     }
   }, [lobbyMusic, lobby]);
   return (
-    <div style={{ height: 1, width: 1 }}>
+    <div style={{ height: 1, width: 1, display: 'none' }}>
       <button ref={audioButtonRef} onClick={lobbyGame}>
         Yo
       </button>
