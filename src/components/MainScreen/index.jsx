@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
+import { setGameFromServer, setUserID, addScoreAction } from '../../reducers/gameReducer';
 
 import client from '../../modules/feathers';
 import './index.scss';
@@ -43,12 +43,19 @@ const MainScreen = () => {
     } else {
       console.log('RUNNING ADDITIONAL TIMES ');
     }
-  }, [userID]);
+  }, [userID, room.state]);
 
-  const upadateScore = useCallback(() => {
-    console.log('CALLING UDPATE', { players: { [userID]: { score: 100 } } });
-    roomService.patch(room.id, { players: { [userID]: { score: 100 } } });
-  }, [userID, room]);
+  const addScore = () => {
+    dispatch(addScoreAction(10));
+  };
+
+  const updateStateToPlaying = useCallback(() => {
+    roomService.patch(room.id, { state: 'playing' });
+  }, [room]);
+
+  const updateStateToLevelComplete = useCallback(() => {
+    roomService.patch(room.id, { state: 'levelComplete' });
+  }, [room]);
 
   return (
     <div className="container">
@@ -56,12 +63,24 @@ const MainScreen = () => {
         {room &&
           Object.keys(room.players).map(playerId => (
             <div key={playerId}>
-              {playerId} - {room.players[playerId].score}
+              {playerId} {playerId === userID && <b>**YOU**</b>} - {room.players[playerId].score}
             </div>
           ))}
       </div>
-      <button className="btn" type="button" onClick={upadateScore}>
-        set my score
+      <div>
+        <b>state</b> {room && room.state}
+      </div>
+      <div>
+        <b>local score</b> {room && room.score}
+      </div>
+      <button className="btn" type="button" onClick={addScore}>
+        PLUS 10 POINTS FOR the win{' '}
+      </button>
+      <button className="btn" type="button" onClick={updateStateToPlaying}>
+        set state: playing
+      </button>
+      <button className="btn" type="button" onClick={updateStateToLevelComplete}>
+        set state: levelcomplete
       </button>
     </div>
   );
