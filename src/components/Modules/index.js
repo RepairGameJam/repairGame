@@ -56,9 +56,38 @@ export const Module = ({ imageUrl, pieceName, posX, posY }) => {
   );
 };
 export const moduleMap = {
-  triangle: { imageUrl: 'sockets/master-socket-1.svg', key: 'triangle', pieceName: 'triangle', posX: 20, posY: 200 },
-  square: { imageUrl: 'sockets/master-socket-2.svg', key: 'square', pieceName: 'square', posX: 200, posY: 0 },
-  circle: { imageUrl: 'sockets/master-socket-3.svg', key: 'circle', pieceName: 'circle', posX: 330, posY: 400 },
-  ruby: { imageUrl: 'sockets/master-socket-4.svg', key: 'ruby', pieceName: 'ruby', posX: 500, posY: 200 },
-  python: { imageUrl: 'sockets/master-socket-5.svg', key: 'python', pieceName: 'python', posX: 90, posY: 300 },
+  triangle: { imageUrl: 'sockets/master-socket-1.svg', key: 'triangle', pieceName: 'triangle', posX: 180, posY: 20 },
+  square: { imageUrl: 'sockets/master-socket-2.svg', key: 'square', pieceName: 'square', posX: 310, posY: 90 },
+  circle: { imageUrl: 'sockets/master-socket-3.svg', key: 'circle', pieceName: 'circle', posX: 530, posY: 400 },
+  ruby: { imageUrl: 'sockets/master-socket-4.svg', key: 'ruby', pieceName: 'ruby', posX: 520, posY: 230 },
+  python: { imageUrl: 'sockets/master-socket-5.svg', key: 'python', pieceName: 'python', posX: 90, posY: 340 },
+  nola: { imageUrl: 'sockets/master-socket-7.svg', key: 'nola', pieceName: 'nola', posX: 20, posY: 10 },
+  orlando: { imageUrl: 'sockets/master-socket-6.svg', key: 'orlando', pieceName: 'orlando', posX: 9, posY: 250 },
+  nyc: { imageUrl: 'sockets/master-socket-8.svg', key: 'nyc', pieceName: 'nyc', posX: 301, posY: 240 },
+  sf: { imageUrl: 'sockets/master-socket-9.svg', key: 'sf', pieceName: 'sf', posX: 490, posY: 0 },
+  chicago: { imageUrl: 'sockets/master-socket-10.svg', key: 'chicago', pieceName: 'chicago', posX: 300, posY: 390 },
+  dallas: { imageUrl: 'sockets/master-socket-11.svg', key: 'dallas', pieceName: 'dallas', posX: 430, posY: 300 },
+  tucson: { imageUrl: 'sockets/master-socket-12.svg', key: 'tucson', pieceName: 'tucson', posX: 610, posY: 300 },
+  killington: {
+    imageUrl: 'sockets/master-socket-13.svg',
+    key: 'killington',
+    pieceName: 'killington',
+    posX: 680,
+    posY: 400,
+  },
+  montreal: { imageUrl: 'sockets/master-socket-14.svg', key: 'montreal', pieceName: 'montreal', posX: 530, posY: 100 },
+  vancouver: {
+    imageUrl: 'sockets/master-socket-15.svg',
+    key: 'vancouver',
+    pieceName: 'vancouver',
+    posX: 195,
+    posY: 290,
+  },
+  newjersey: {
+    imageUrl: 'sockets/master-socket-16.svg',
+    key: 'newjersey',
+    pieceName: 'newjersey',
+    posX: 160,
+    posY: 430,
+  },
 };
