@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DndProvider } from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
+
 import Content from './content/Content';
 import SideBar from './sidebar/SideBar';
 
@@ -13,8 +16,10 @@ const Layout = styled.div`
 
 const Application = () => (
   <Layout>
-    <SideBar />
-    <Content />
+    <DndProvider backend={Backend}>
+      <SideBar />
+      <Content />
+    </DndProvider>
   </Layout>
 );
 

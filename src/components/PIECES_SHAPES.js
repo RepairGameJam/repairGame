@@ -1,5 +1,3 @@
-import { Piece1, Piece2, Piece3, Piece4, Piece5 } from './Pieces';
-
 export const PIECE_TYPES = {
   square: 'square',
   triangle: 'triangle',
@@ -9,11 +7,31 @@ export const PIECE_TYPES = {
 };
 
 const PIECES = {
-  [PIECE_TYPES.triangle]: Piece1,
-  [PIECE_TYPES.square]: Piece2,
-  [PIECE_TYPES.circle]: Piece3,
-  [PIECE_TYPES.ruby]: Piece4,
-  [PIECE_TYPES.python]: Piece5,
+  [PIECE_TYPES.triangle]: {
+    pieceType: PIECE_TYPES.triangle,
+    color: 'orange',
+    content: 'Piece 1 Triangle',
+  },
+  [PIECE_TYPES.square]: {
+    pieceType: PIECE_TYPES.square,
+    color: 'lightpink',
+    content: 'Piece 2 square',
+  },
+  [PIECE_TYPES.circle]: {
+    pieceType: PIECE_TYPES.circle,
+    color: 'forestgreen',
+    content: 'Piece 3 circle',
+  },
+  [PIECE_TYPES.ruby]: {
+    pieceType: PIECE_TYPES.ruby,
+    color: 'darkorchid',
+    content: 'Piece 4 ruby',
+  },
+  [PIECE_TYPES.python]: {
+    pieceType: PIECE_TYPES.python,
+    color: 'darkorange',
+    content: 'Piece 5 python',
+  },
 };
 
 export default PIECES;
