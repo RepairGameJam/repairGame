@@ -13,6 +13,8 @@ const initialState = {
   selectedPiece: '',
   score: 0,
   requiredPieces: [],
+  playingMusic: false,
+  lobbyMusic: false,
 };
 
 const PLAYER_ID = 'PLAYER_ID';
@@ -69,9 +71,17 @@ const gameReducer = (state = initialState, action) => {
     }
     case SYNCHRONIZE:
       // level is done. clear the local store score
+      if (action.game.state === 'playing') {
+        action.game.playingMusic = true;
+        action.game.lobbyMusic = false;
+      }
       if (action.game.state === 'levelComplete' && state.state === 'playing') {
         action.game.score = 0;
         action.game.requiredPieces = [];
+      }
+      if (action.game.state === 'complete' || action.game.state === 'lobby') {
+        action.game.playingMusic = false;
+        action.game.lobbyMusic = true;
       }
       return {
         ...state,
