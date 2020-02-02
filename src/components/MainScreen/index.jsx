@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
+
 import client from '../../modules/feathers';
 import './index.scss';
 
@@ -15,31 +18,36 @@ const genUserId = (prefix = '') => {
 const roomService = client.service('room');
 
 const MainScreen = () => {
-  const [room, setRoom] = useState('');
-  const [userID, setUserID] = useState('');
+  const dispatch = useDispatch();
+  const setRoom = room => dispatch(setGameFromServer(room));
+  const setUser = userID => dispatch(setUserID(userID));
+  const room = useSelector(state => state.game);
+  const userID = useSelector(state => state.game.userID);
 
   useEffect(() => {
     if (!userID) {
-      setUserID(genUserId());
+      const newUserId = genUserId();
+      console.log('RUNNING FIRST TIME', newUserId);
+      setUser(newUserId);
+      roomService.create({ userID: newUserId }).then(res => {
+        setRoom(res);
+        console.log('response from CREATE', res);
+      });
+
+      roomService.on('status', (data, error) => {
+        if (error) console.log('error', error);
+        setRoom(data);
+        console.log('data', data);
+      });
+    } else {
+      console.log('RUNNING ADDITIONAL TIMES ');
     }
   }, [userID]);
 
-  const createRoomAndJoin = () => {
-    roomService.create({ userID }).then(res => {
-      setRoom(res);
-      console.log('response from CREATE', res);
-    });
-
-    roomService.on('status', (data, error) => {
-      if (error) console.log('error', error);
-      setRoom(data);
-      console.log('data', data);
-    });
-  };
-
-  const upadateScore = () => {
+  const upadateScore = useCallback(() => {
+    console.log('CALLING UDPATE', { players: { [userID]: { score: 100 } } });
     roomService.patch(room.id, { players: { [userID]: { score: 100 } } });
-  };
+  }, [userID, room]);
 
   return (
     <div className="container">
@@ -51,9 +59,6 @@ const MainScreen = () => {
             </div>
           ))}
       </div>
-      <button className="btn" type="button" onClick={createRoomAndJoin}>
-        START GAME
-      </button>
       <button className="btn" type="button" onClick={upadateScore}>
         set my score
       </button>
