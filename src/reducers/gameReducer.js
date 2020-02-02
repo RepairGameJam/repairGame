@@ -4,6 +4,7 @@ const roomService = client.service('room');
 
 const initialState = {
   id: null,
+  userID: null,
   roomCode: null,
   players: {},
   state: 'lobby',
@@ -17,7 +18,7 @@ const PLAYER_ID = 'PLAYER_ID';
 const SYNCHRONIZE = 'SYNCHRONIZE';
 const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
-const ADD_SCORE = 'ADD_SCORE';
+// const ADD_SCORE = 'ADD_SCORE';
 const SELECT_PIECE = 'SELECT_PIECE';
 const MATCH_PIECE = 'MATCH_PIECE';
 
@@ -41,10 +42,10 @@ export const addPieceAction = piece => ({
   piece,
 });
 
-export const addScoreAction = score => ({
-  type: ADD_SCORE,
-  score,
-});
+// export const addScoreAction = score => ({
+//   type: ADD_SCORE,
+//   score,
+// });
 
 export const selectPieceAction = piece => ({
   type: SELECT_PIECE,
@@ -84,13 +85,12 @@ const gameReducer = (state = initialState, action) => {
         requiredPieces: [],
         level: action.level,
       };
-    case ADD_SCORE:
-      // todo: maybe only send score if state is playing?
-      roomService.patch(state.id, { players: { [state.userID]: { score: action.score } } });
-      return {
-        ...state,
-        score: state.score + action.score,
-      };
+    // case ADD_SCORE:
+    // todo: maybe only send score if state is playing?
+    // return {
+    //   ...state,
+    //   score: state.score + action.score,
+    // };
     case ADD_PIECE:
       return {
         ...state,
@@ -102,6 +102,8 @@ const gameReducer = (state = initialState, action) => {
         selectedPiece: action.piece,
       };
     case MATCH_PIECE:
+      roomService.patch(state.id, { players: { [state.userID]: { score: action.score } } });
+
       return {
         ...state,
         selectedPiece: '',
