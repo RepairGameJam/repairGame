@@ -12,6 +12,8 @@ const genUserId = (prefix = '') => {
   return `${prefix}${result}`;
 };
 
+const roomService = client.service('room');
+
 const MainScreen = () => {
   const [room, setRoom] = useState('');
   const [userID, setUserID] = useState('');
@@ -21,8 +23,6 @@ const MainScreen = () => {
       setUserID(genUserId());
     }
   }, [userID]);
-
-  const roomService = client.service('room');
 
   const createRoomAndJoin = () => {
     roomService.create({ userID }).then(res => {
