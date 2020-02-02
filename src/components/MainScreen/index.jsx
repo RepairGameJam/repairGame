@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Cookies from 'universal-cookie';
 import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
 
 import client from '../../modules/feathers';
@@ -29,7 +30,8 @@ const MainScreen = () => {
 
   useEffect(() => {
     if (!userID) {
-      const newUserId = genUserId();
+      const cookies = new Cookies();
+      const newUserId = cookies.get('userID') || genUserId();
       console.log('RUNNING FIRST TIME', newUserId);
       setUser(newUserId);
       roomService.create({ userID: newUserId }).then(res => {

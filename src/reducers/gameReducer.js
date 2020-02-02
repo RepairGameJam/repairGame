@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie';
 import client from '../modules/feathers';
 
 const roomService = client.service('room');
@@ -18,7 +19,6 @@ const PLAYER_ID = 'PLAYER_ID';
 const SYNCHRONIZE = 'SYNCHRONIZE';
 const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
-// const ADD_SCORE = 'ADD_SCORE';
 const SELECT_PIECE = 'SELECT_PIECE';
 const MATCH_PIECE = 'MATCH_PIECE';
 
@@ -42,11 +42,6 @@ export const addPieceAction = piece => ({
   piece,
 });
 
-// export const addScoreAction = score => ({
-//   type: ADD_SCORE,
-//   score,
-// });
-
 export const selectPieceAction = piece => ({
   type: SELECT_PIECE,
   piece,
@@ -64,15 +59,19 @@ export const PieceAction = piece => ({
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PLAYER_ID:
+    case PLAYER_ID: {
+      const cookies = new Cookies();
+      cookies.set('userID', action.userID);
       return {
         ...state,
         userID: action.userID,
       };
+    }
     case SYNCHRONIZE:
       // level is done. clear the local store score
       if (action.game.state === 'levelComplete' && state.state === 'playing') {
         action.game.score = 0;
+        action.game.requiredPieces = [];
       }
       return {
         ...state,
@@ -86,12 +85,6 @@ const gameReducer = (state = initialState, action) => {
         requiredPieces: [],
         level: action.level,
       };
-    // case ADD_SCORE:
-    // todo: maybe only send score if state is playing?
-    // return {
-    //   ...state,
-    //   score: state.score + action.score,
-    // };
     case ADD_PIECE:
       return {
         ...state,
