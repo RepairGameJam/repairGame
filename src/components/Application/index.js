@@ -21,14 +21,12 @@ const Application = ({ id = 1337 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(startGameAction(LEVELS.level1));
-    console.log('fuck');
   }, []);
   if (!id) return <div>Should return to Main Screen</div>;
   return (
     <Layout>
       <SideBar />
       <Content />
-      {/* <Board /> */}
     </Layout>
   );
 };

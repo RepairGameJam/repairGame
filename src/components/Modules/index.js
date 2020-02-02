@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
-import { addPieceAction } from "../../reducers/gameReducer";
-import { PIECE_TYPES } from "../PIECES_SHAPES";
+import { addPieceAction } from '../../reducers/gameReducer';
+import { PIECE_TYPES } from '../PIECES_SHAPES';
 
 const Asset = styled.div`
   width: 200px;
@@ -46,6 +46,31 @@ export const Module3 = () => {
   return (
     <Asset color="tomato">
       <h3>Module 3</h3>
+    </Asset>
+  );
+};
+
+export const Module4 = () => {
+  const pieceType = PIECE_TYPES.ruby;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addPieceAction(pieceType));
+  }, []);
+  return (
+    <Asset color="goldenrod">
+      <h3>Module 4</h3>
+    </Asset>
+  );
+};
+export const Module5 = () => {
+  const pieceType = PIECE_TYPES.python;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addPieceAction(pieceType));
+  }, []);
+  return (
+    <Asset color="olive">
+      <h3>Module 5</h3>
     </Asset>
   );
 };

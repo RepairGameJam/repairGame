@@ -20,7 +20,7 @@ const PlayerTag = styled.p`
   text-align: center;
 `;
 
-const PlayerScores = ({ scores = [] }) => (
+const PlayerScores = ({ scores = [{ name: 'J', score: 100 }] }) => (
   <Scoreboard>
     {scores.map(user => (
       <Player key={user.name}>
@@ -33,7 +33,7 @@ const PlayerScores = ({ scores = [] }) => (
 );
 
 PlayerScores.propTypes = {
-  scores: PropTypes.array.isRequired
+  scores: PropTypes.array.isRequired,
 };
 
 export default PlayerScores;

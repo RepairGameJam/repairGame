@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import client from '../../modules/feathers';
 import './index.scss';
+import Application from '../Application';
 
 const genUserId = (prefix = '') => {
   let result = '';
@@ -42,22 +43,23 @@ const MainScreen = () => {
   };
 
   return (
-    <div className="container">
-      <div>
-        {room &&
-          Object.keys(room.players).map(playerId => (
-            <div key={playerId}>
-              {playerId} - {room.players[playerId].score}
-            </div>
-          ))}
-      </div>
-      <button className="btn" type="button" onClick={createRoomAndJoin}>
-        START GAME
-      </button>
-      <button className="btn" type="button" onClick={upadateScore}>
-        set my score
-      </button>
-    </div>
+    <Application />
+    // <div className="container">
+    //   <div>
+    //     {room &&
+    //       Object.keys(room.players).map(playerId => (
+    //         <div key={playerId}>
+    //           {playerId} - {room.players[playerId].score}
+    //         </div>
+    //       ))}
+    //   </div>
+    //   <button className="btn" type="button" onClick={createRoomAndJoin}>
+    //     START GAME
+    //   </button>
+    //   <button className="btn" type="button" onClick={upadateScore}>
+    //     set my score
+    //   </button>
+    // </div>
   );
 };
 
