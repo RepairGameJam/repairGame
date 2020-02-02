@@ -14,7 +14,7 @@ const initialState = {
   score: 0,
   requiredPieces: [],
   playingMusic: false,
-  lobbyMusic: false,
+  lobbyMusic: true,
 };
 
 const PLAYER_ID = 'PLAYER_ID';
