@@ -79,6 +79,7 @@ const gameReducer = (state = initialState, action) => {
       };
     case START:
       return {
+        ...state,
         score: 0,
         requiredPieces: [],
         level: action.level,
