@@ -7,6 +7,7 @@ import { createStore } from 'redux';
 import reducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 import MainScreen from './components/MainScreen';
+import MusicApp from './components/MusicApp';
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducer /* preloadedState, */,
@@ -29,6 +30,7 @@ ReactDOM.render(
   <Provider store={store}>
     <GlobalStyle />
     <MainScreen />
+    <MusicApp />
   </Provider>,
   document.getElementById('root')
 );

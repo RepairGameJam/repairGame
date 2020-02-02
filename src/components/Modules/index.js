@@ -35,7 +35,11 @@ export const Module = ({ imageUrl, pieceName, posX, posY }) => {
 
   const [collectedProps, drop] = useDrop({
     accept: [pieceType],
-    drop: () => dispatch(matchPieceAction(pieceType, 25)),
+    drop: () => {
+      const test = new Audio('/audio/CORRECT.mp3');
+      test.play();
+      dispatch(matchPieceAction(pieceType, 25));
+    },
   });
 
   const requiredPieces = useSelector(state => state.game.requiredPieces);
