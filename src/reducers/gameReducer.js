@@ -1,15 +1,32 @@
 const initialState = {
+  id: null,
+  roomCode: null,
+  players: {},
+  state: 'lobby',
+  level: null,
+  selectedPiece: '',
+
   score: 0,
   requiredPieces: [],
-  level: {},
-  selectedPiece: '',
 };
 
+const PLAYER_ID = 'PLAYER_ID';
+const SYNCHRONIZE = 'SYNCHRONIZE';
 const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
 const ADD_SCORE = 'ADD_SCORE';
 const SELECT_PIECE = 'SELECT_PIECE';
 const MATCH_PIECE = 'MATCH_PIECE';
+
+export const setUserID = userID => ({
+  type: PLAYER_ID,
+  userID,
+});
+
+export const setGameFromServer = game => ({
+  type: SYNCHRONIZE,
+  game,
+});
 
 export const startGameAction = level => ({
   type: START,
@@ -43,6 +60,16 @@ export const PieceAction = piece => ({
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+    case PLAYER_ID:
+      return {
+        ...state,
+        userID: action.userID,
+      };
+    case SYNCHRONIZE:
+      return {
+        ...state,
+        ...action.game,
+      };
     case START:
       return {
         score: 0,
