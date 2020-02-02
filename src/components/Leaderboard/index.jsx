@@ -22,7 +22,7 @@ const Lobby = () => {
     }
   }, [room.state]);
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
       <h1>Leaderboard </h1>
       <ul>
         {room &&

@@ -14,7 +14,7 @@ const Lobby = () => {
   }, [room]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
       <h1>Lobby</h1>
       <ul>
         {room &&
