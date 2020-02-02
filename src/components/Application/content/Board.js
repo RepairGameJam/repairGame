@@ -11,13 +11,7 @@ const BoardWrapper = styled.div`
   background-repeat: repeat;
   border-style: solid;
   border-width: 5px;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 `;
 
 const Board = () => {
@@ -25,8 +19,8 @@ const Board = () => {
   const { TopRow, BottomRow } = LEVELS[level] || {};
   return (
     <BoardWrapper>
-      <Row>{TopRow && TopRow.map(item => <Module {...item} />)}</Row>
-      <Row>{BottomRow && BottomRow.map(item => <Module {...item} />)}</Row>
+      {TopRow && TopRow.map(item => <Module {...item} />)}
+      {BottomRow && BottomRow.map(item => <Module {...item} />)}
     </BoardWrapper>
   );
 };
