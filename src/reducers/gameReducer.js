@@ -1,3 +1,7 @@
+import client from '../modules/feathers';
+
+const roomService = client.service('room');
+
 const initialState = {
   id: null,
   roomCode: null,
@@ -48,6 +52,10 @@ const gameReducer = (state = initialState, action) => {
         userID: action.userID,
       };
     case SYNCHRONIZE:
+      // level is done. clear the local store score
+      if (action.game.state === 'levelComplete' && state.state === 'playing') {
+        action.game.score = 0;
+      }
       return {
         ...state,
         ...action.game,
@@ -59,6 +67,8 @@ const gameReducer = (state = initialState, action) => {
         level: action.level,
       };
     case ADD_SCORE:
+      // todo: maybe only send score if state is playing?
+      roomService.patch(state.id, { players: { [state.userID]: { score: action.score } } });
       return {
         ...state,
         score: state.score + action.score,
