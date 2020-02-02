@@ -118,7 +118,6 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         state: requiredPieces.length === 0 ? 'levelComplete' : state.state,
-        level: requiredPieces.length === 0 ? null : state.level,
         selectedPiece: '',
         requiredPieces,
         score: state.score + action.score,
