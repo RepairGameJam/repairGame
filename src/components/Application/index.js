@@ -20,7 +20,7 @@ const Application = ({ id = 1337 }) => {
   // id of a joined room
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(startGameAction(LEVELS.level1));
+    dispatch(startGameAction('level1'));
   }, []);
   if (!id) return <div>Should return to Main Screen</div>;
   return (

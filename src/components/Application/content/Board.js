@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import LEVELS from '../../LEVELS';
 
 const BoardWrapper = styled.div`
   flex-grow: 9;
@@ -13,7 +14,7 @@ const BoardWrapper = styled.div`
 
 const Board = () => {
   const level = useSelector(state => state.game.level);
-  const { TopRow, BottomRow } = level;
+  const { TopRow, BottomRow } = LEVELS[level] || {};
 
   const TopComponent = TopRow || (() => <div />);
   const BottomComponent = BottomRow || (() => <div />);

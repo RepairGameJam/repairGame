@@ -5,7 +5,6 @@ const initialState = {
   state: 'lobby',
   level: null,
   selectedPiece: '',
-
   score: 0,
   requiredPieces: [],
 };

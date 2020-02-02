@@ -51,19 +51,20 @@ const MainScreen = () => {
   }, [userID, room]);
 
   return (
-    <div className="container">
-      <div>
-        {room &&
-          Object.keys(room.players).map(playerId => (
-            <div key={playerId}>
-              {playerId} - {room.players[playerId].score}
-            </div>
-          ))}
-      </div>
-      <button className="btn" type="button" onClick={upadateScore}>
-        set my score
-      </button>
-    </div>
+    // <div className="container">
+    //   <div>
+    //     {room &&
+    //       Object.keys(room.players).map(playerId => (
+    //         <div key={playerId}>
+    //           {playerId} - {room.players[playerId].score}
+    //         </div>
+    //       ))}
+    //   </div>
+    //   <button className="btn" type="button" onClick={upadateScore}>
+    //     set my score
+    //   </button>
+    // </div>
+    <Application />
   );
 };
 
