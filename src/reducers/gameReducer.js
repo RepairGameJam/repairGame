@@ -112,11 +112,13 @@ const gameReducer = (state = initialState, action) => {
         },
       };
       if (requiredPieces.length === 0) {
-        update.state = 'levelCompleted';
+        update.state = 'levelComplete';
       }
       roomService.patch(state.id, update);
       return {
         ...state,
+        state: requiredPieces.length === 0 ? 'levelComplete' : state.state,
+        level: requiredPieces.length === 0 ? null : state.level,
         selectedPiece: '',
         requiredPieces,
         score: state.score + action.score,
