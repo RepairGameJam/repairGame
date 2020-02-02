@@ -28,9 +28,15 @@ const PieceContainer = styled.div`
 const Piece = ({ pieceType, color, content }) => {
   const [{ opacity }, dragRef] = useDrag({
     item: { type: pieceType },
-    collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.5 : 1,
-    }),
+    collect: monitor => {
+      if (monitor.isDragging()) {
+        const test = new Audio('/audio/PICKUP.mp3');
+        test.play();
+      }
+      return {
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      };
+    },
   });
 
   return (
