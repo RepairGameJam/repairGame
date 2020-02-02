@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import PIECES from '../../PIECES_SHAPES';
 
 const CircuitsWrapper = styled.div`
   flex-grow: 3;
@@ -13,10 +15,20 @@ const Header = styled.h3`
   margin-top: 2em;
 `;
 
-const Circuits = () => (
-  <CircuitsWrapper>
-    <Header>Circuit Parts</Header>
-  </CircuitsWrapper>
-);
+const Circuits = () => {
+  const requiredPieces = useSelector(state => state.game.requiredPieces);
+  const level = useSelector(state => state.game.level);
+  return (
+    <CircuitsWrapper>
+      <Header>Circuit Parts</Header>
+      {level
+        ? requiredPieces.map(pieceType => {
+            const Component = PIECES[pieceType];
+            return <Component />;
+          })
+        : null}
+    </CircuitsWrapper>
+  );
+};
 
 export default Circuits;
