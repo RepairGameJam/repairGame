@@ -78,6 +78,7 @@ const gameReducer = (state = initialState, action) => {
         ...action.game,
       };
     case START:
+      console.log('START');
       return {
         ...state,
         score: 0,
@@ -101,14 +102,26 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         selectedPiece: action.piece,
       };
-    case MATCH_PIECE:
+    case MATCH_PIECE: {
+      const requiredPieces = state.requiredPieces.filter(piece => piece !== action.pieceType);
+      const update = {
+        players: {
+          [state.userID]: {
+            score: action.score,
+          },
+        },
+      };
+      if (requiredPieces.length === 0) {
+        update.state = 'levelCompleted';
+      }
+      roomService.patch(state.id, update);
       return {
         ...state,
         selectedPiece: '',
-        requiredPieces: state.requiredPieces.filter(piece => piece !== action.pieceType),
+        requiredPieces,
         score: state.score + action.score,
       };
-
+    }
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import client from '../../modules/feathers';
 import './index.scss';
 import Application from '../Application';
 import Lobby from '../Lobby';
+import Leaderboard from '../Leaderboard';
 
 const genUserId = (prefix = '') => {
   let result = '';
@@ -21,8 +22,8 @@ const roomService = client.service('room');
 
 const MainScreen = () => {
   const dispatch = useDispatch();
-  const setRoom = room => dispatch(setGameFromServer(room));
-  const setUser = userID => dispatch(setUserID(userID));
+  const setRoom = newRoom => dispatch(setGameFromServer(newRoom));
+  const setUser = newUserID => dispatch(setUserID(newUserID));
   const room = useSelector(state => state.game);
   const userID = useSelector(state => state.game.userID);
 
@@ -59,7 +60,7 @@ const MainScreen = () => {
       return <Application />;
     case 'levelComplete':
     case 'leaderboard':
-      return <Lobby leaderboard />;
+      return <Leaderboard />;
     case 'complete':
     case 'lobby':
     default:
