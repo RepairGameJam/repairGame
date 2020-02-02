@@ -6,20 +6,30 @@ import { useDrop } from 'react-dnd';
 import { addPieceAction, matchPieceAction } from '../../reducers/gameReducer';
 import { PIECE_TYPES } from '../PIECES_SHAPES';
 
-const Asset = styled.div`
+const AssetContainer = styled.div`
+  display: flex;
   width: 100px;
   height: 100px;
-  background-color: ${props => props.color};
+  background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: ${props => props.posY}px;
   left: ${props => props.posX}px;
+  border-radius: 50%;
+`;
+
+const Asset = styled.div`
+  width: 100px;
+  height: 100px;
+  background-image: url(${props => props.imageUrl});
+  background-repeat: no-repeat;
+  background-position: center;
   &:active {
     opacity: 0.9;
   }
   user-select: none;
 `;
 
-export const Module = ({ color, pieceName, posX, posY }) => {
+export const Module = ({ imageUrl, pieceName, posX, posY }) => {
   const pieceType = PIECE_TYPES[pieceName];
   const dispatch = useDispatch();
 
@@ -32,7 +42,7 @@ export const Module = ({ color, pieceName, posX, posY }) => {
 
   // Execute some altered asset state
   if (!requiredPieces.includes(pieceName)) {
-    color = 'black';
+    // color = 'black';
   }
 
   useEffect(() => {
@@ -40,15 +50,15 @@ export const Module = ({ color, pieceName, posX, posY }) => {
   }, []);
 
   return (
-    <Asset ref={drop} color={color} posX={posX} posY={posY}>
-      <h3>{pieceName}</h3>
-    </Asset>
+    <AssetContainer posX={posX} posY={posY}>
+      <Asset ref={drop} imageUrl={imageUrl} />
+    </AssetContainer>
   );
 };
 export const moduleMap = {
-  triangle: { color: 'aquamarine', key: 'triangle', pieceName: 'triangle', posX: 20, posY: 200 },
-  square: { color: 'salmon', key: 'square', pieceName: 'square', posX: 200, posY: 0 },
-  circle: { color: 'tomato', key: 'circle', pieceName: 'circle', posX: 330, posY: 400 },
-  ruby: { color: 'goldenrod', key: 'ruby', pieceName: 'ruby', posX: 500, posY: 200 },
-  python: { color: 'olive', key: 'python', pieceName: 'python', posX: 90, posY: 300 },
+  triangle: { imageUrl: 'sockets/master-socket-1.svg', key: 'triangle', pieceName: 'triangle', posX: 20, posY: 200 },
+  square: { imageUrl: 'sockets/master-socket-2.svg', key: 'square', pieceName: 'square', posX: 200, posY: 0 },
+  circle: { imageUrl: 'sockets/master-socket-3.svg', key: 'circle', pieceName: 'circle', posX: 330, posY: 400 },
+  ruby: { imageUrl: 'sockets/master-socket-4.svg', key: 'ruby', pieceName: 'ruby', posX: 500, posY: 200 },
+  python: { imageUrl: 'sockets/master-socket-5.svg', key: 'python', pieceName: 'python', posX: 90, posY: 300 },
 };
