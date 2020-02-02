@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGameFromServer, setUserID } from '../../reducers/gameReducer';
 
@@ -46,24 +46,24 @@ const MainScreen = () => {
     }
   }, [userID, room.state]);
 
-  const updateStateToPlaying = useCallback(() => {
-    roomService.patch(room.id, { state: 'playing' });
-  }, [room]);
+  // const updateStateToPlaying = useCallback(() => {
+  //   roomService.patch(room.id, { state: 'playing' });
+  // }, [room]);
 
-  const updateStateToLevelComplete = useCallback(() => {
-    roomService.patch(room.id, { state: 'levelComplete' });
-  }, [room]);
+  // const updateStateToLevelComplete = useCallback(() => {
+  //   roomService.patch(room.id, { state: 'levelComplete' });
+  // }, [room]);
 
   switch (room.state) {
-    default:
-    case 'complete':
-    case 'lobby':
-      return <Lobby />;
     case 'playing':
       return <Application />;
     case 'levelComplete':
     case 'leaderboard':
       return <Lobby leaderboard />;
+    case 'complete':
+    case 'lobby':
+    default:
+      return <Lobby />;
   }
 };
 
