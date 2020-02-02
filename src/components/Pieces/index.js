@@ -7,32 +7,32 @@ const Asset = styled.div`
   background-color: ${props => props.color};s
 `;
 
-export const Piece1 = () => (
-  <Asset color="orange">
+export const Piece1 = ({ onClick }) => (
+  <Asset color="orange" onClick={onClick}>
     <h3>Piece 1 Triangle</h3>
   </Asset>
 );
 
-export const Piece2 = () => (
-  <Asset color="lightpink">
+export const Piece2 = ({ onClick }) => (
+  <Asset color="lightpink" onClick={onClick}>
     <h3>Piece 2 square</h3>
   </Asset>
 );
 
-export const Piece3 = () => (
-  <Asset color="forestgreen">
+export const Piece3 = ({ onClick }) => (
+  <Asset color="forestgreen" onClick={onClick}>
     <h3>Piece 3 circle</h3>
   </Asset>
 );
 
-export const Piece4 = () => (
-  <Asset color="darkorchid">
-    <h3>Piece 4 circle</h3>
+export const Piece4 = ({ onClick }) => (
+  <Asset color="darkorchid" onClick={onClick}>
+    <h3>Piece 4 ruby</h3>
   </Asset>
 );
 
-export const Piece5 = () => (
-  <Asset color="darkorange">
-    <h3>Piece 5 circle</h3>
+export const Piece5 = ({ onClick }) => (
+  <Asset color="darkorange" onClick={onClick}>
+    <h3>Piece 5 python</h3>
   </Asset>
 );

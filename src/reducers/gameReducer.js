@@ -1,26 +1,38 @@
 const initialState = {
   score: 0,
   requiredPieces: [],
-  level: {}
+  level: {},
+  selectedPiece: '',
 };
 
-const START = "START_GAME";
-const ADD_PIECE = "ADD_PIECE";
-const ADD_SCORE = "ADD_SCORE";
+const START = 'START_GAME';
+const ADD_PIECE = 'ADD_PIECE';
+const ADD_SCORE = 'ADD_SCORE';
+const SELECT_PIECE = 'SELECT_PIECE';
+const DESELECT_PIECE = 'DESELECT_PIECE';
 
 export const startGameAction = level => ({
   type: START,
-  level
+  level,
 });
 
 export const addPieceAction = piece => ({
   type: ADD_PIECE,
-  piece
+  piece,
 });
 
 export const addScoreAction = score => ({
   type: ADD_SCORE,
-  score
+  score,
+});
+
+export const selectPieceAction = piece => ({
+  type: SELECT_PIECE,
+  piece,
+});
+export const deselectPieceeAction = piece => ({
+  type: DESELECT_PIECE,
+  piece,
 });
 
 const gameReducer = (state = initialState, action) => {
@@ -29,17 +41,27 @@ const gameReducer = (state = initialState, action) => {
       return {
         score: 0,
         requiredPieces: [],
-        level: action.level
+        level: action.level,
       };
     case ADD_SCORE:
       return {
         ...state,
-        score: state.score + action.score
+        score: state.score + action.score,
       };
     case ADD_PIECE:
       return {
         ...state,
-        requiredPieces: [...state.requiredPieces, action.piece]
+        requiredPieces: [...state.requiredPieces, action.piece],
+      };
+    case SELECT_PIECE:
+      return {
+        ...state,
+        selectedPiece: action.piece,
+      };
+    case DESELECT_PIECE:
+      return {
+        ...state,
+        selectedPiece: '',
       };
     default:
       return state;
