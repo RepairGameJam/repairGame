@@ -9,7 +9,7 @@ const START = 'START_GAME';
 const ADD_PIECE = 'ADD_PIECE';
 const ADD_SCORE = 'ADD_SCORE';
 const SELECT_PIECE = 'SELECT_PIECE';
-const DESELECT_PIECE = 'DESELECT_PIECE';
+const MATCH_PIECE = 'MATCH_PIECE';
 
 export const startGameAction = level => ({
   type: START,
@@ -30,8 +30,14 @@ export const selectPieceAction = piece => ({
   type: SELECT_PIECE,
   piece,
 });
-export const deselectPieceeAction = piece => ({
-  type: DESELECT_PIECE,
+export const matchPieceAction = (pieceType, score) => ({
+  type: MATCH_PIECE,
+  pieceType,
+  score,
+});
+
+export const PieceAction = piece => ({
+  type: MATCH_PIECE,
   piece,
 });
 
@@ -58,11 +64,14 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         selectedPiece: action.piece,
       };
-    case DESELECT_PIECE:
+    case MATCH_PIECE:
       return {
         ...state,
         selectedPiece: '',
+        requiredPieces: state.requiredPieces.filter(piece => piece !== action.pieceType),
+        score: state.score + action.score,
       };
+
     default:
       return state;
   }

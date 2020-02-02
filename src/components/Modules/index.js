@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { addPieceAction } from '../../reducers/gameReducer';
+import { addPieceAction, matchPieceAction } from '../../reducers/gameReducer';
 import { PIECE_TYPES } from '../PIECES_SHAPES';
 
 const Asset = styled.div`
@@ -11,66 +11,32 @@ const Asset = styled.div`
   background-color: ${props => props.color};
 `;
 
-export const Module1 = () => {
-  const pieceType = PIECE_TYPES.triangle;
+const Module = ({ pieceName, color, text }) => {
+  const selectedPiece = useSelector(state => state.game.selectedPiece);
+  const pieceType = PIECE_TYPES[pieceName];
   const dispatch = useDispatch();
+
+  const isMatch = () => {
+    if (pieceType === selectedPiece) {
+      dispatch(matchPieceAction(pieceType, 25));
+    } else if (selectedPiece) {
+      dispatch(matchPieceAction(null, 0));
+    }
+  };
+
   useEffect(() => {
     dispatch(addPieceAction(pieceType));
   }, []);
+
   return (
-    <Asset color="aquamarine">
-      <h3>Module 1</h3>
+    <Asset color={color} onClick={isMatch}>
+      <h3>{text}</h3>
     </Asset>
   );
 };
 
-export const Module2 = () => {
-  const pieceType = PIECE_TYPES.square;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addPieceAction(pieceType));
-  }, []);
-  return (
-    <Asset color="salmon">
-      <h3>Module 2</h3>
-    </Asset>
-  );
-};
-
-export const Module3 = () => {
-  const pieceType = PIECE_TYPES.circle;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addPieceAction(pieceType));
-  }, []);
-  return (
-    <Asset color="tomato">
-      <h3>Module 3</h3>
-    </Asset>
-  );
-};
-
-export const Module4 = () => {
-  const pieceType = PIECE_TYPES.ruby;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addPieceAction(pieceType));
-  }, []);
-  return (
-    <Asset color="goldenrod">
-      <h3>Module 4</h3>
-    </Asset>
-  );
-};
-export const Module5 = () => {
-  const pieceType = PIECE_TYPES.python;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addPieceAction(pieceType));
-  }, []);
-  return (
-    <Asset color="olive">
-      <h3>Module 5</h3>
-    </Asset>
-  );
-};
+export const Module1 = () => <Module pieceName="triangle" color="aquamarine" text="Module 1" />;
+export const Module2 = () => <Module pieceName="square" color="salmon" text="Module 2" />;
+export const Module3 = () => <Module pieceName="circle" color="tomato" text="Module 3" />;
+export const Module4 = () => <Module pieceName="ruby" color="goldenrod" text="Module 4" />;
+export const Module5 = () => <Module pieceName="python" color="olive" text="Module 5" />;

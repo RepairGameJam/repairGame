@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import PIECES from '../../PIECES_SHAPES';
-import { selectPieceAction, deselectPieceeAction } from '../../../reducers/gameReducer';
+import { selectPieceAction } from '../../../reducers/gameReducer';
 
 const CircuitsWrapper = styled.div`
   flex-grow: 3;
