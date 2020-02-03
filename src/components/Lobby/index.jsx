@@ -27,6 +27,11 @@ const Lobby = () => {
       <button className="btn" type="button" onClick={updateStateToPlaying}>
         Start
       </button>
+      <img
+        src="https://thumbs.dreamstime.com/b/isometric-d-old-lady-watching-tv-sit-armchair-cartoon-character-flat-design-vector-illustration-101715798.jpg"
+        alt="grandma"
+        style={{ width: '30%', marginTop: '4em' }}
+      />
     </div>
   );
 };

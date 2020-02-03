@@ -40,7 +40,9 @@ const Lobby = () => {
           ))}
       </ul>
       {room.level !== 'level3' && 'Next round starts soon'}
-      {room.level === 'level3' && max.userID === userID && 'CONGRATS YOU WIN!!!'}
+      {room.level === 'level3' && max.userID === userID && 'CONGRATS YOU WIN!!!' && (
+        <img src="https://image.shutterstock.com/image-vector/grandma-idea-260nw-46657123.jpg" alt="happy grandma" />
+      )}
       {room.level === 'level3' && max.userID !== userID && 'Sorry, you lost!!!'}
     </div>
   );
