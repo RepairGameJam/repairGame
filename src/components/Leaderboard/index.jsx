@@ -8,7 +8,7 @@ const Lobby = () => {
   const loseSound = useMemo(() => new Audio('/audio/LOSE.mp3'), []);
   let max = { userID: '', score: 0 };
   useEffect(() => {
-    if (room.state === 'leaderboard' && room.level === 'level3') {
+    if (room.state === 'leaderboard') {
       Object.keys(room.players).forEach(player => {
         if (room.players[player].score > max.score) {
           max = { userID: player, score: room.players[player].score };
@@ -21,8 +21,15 @@ const Lobby = () => {
       }
     }
   }, [room.state]);
+  if (room.state === 'leaderboard') {
+    Object.keys(room.players).forEach(player => {
+      if (room.players[player].score > max.score) {
+        max = { userID: player, score: room.players[player].score };
+      }
+    });
+  }
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
       <h1>Leaderboard </h1>
       <ul>
         {room &&
@@ -33,8 +40,10 @@ const Lobby = () => {
           ))}
       </ul>
       {room.level !== 'level3' && 'Next round starts soon'}
-      {max.userID === userID && 'CONGRATS YOU WIN!!!'}
-      {room.level === 'level3' && max.userID !== userID && 'CONGRATS YOU WIN!!!'}
+      {room.level === 'level3' && max.userID === userID && 'CONGRATS YOU WIN!!!' && (
+        <img src="https://image.shutterstock.com/image-vector/grandma-idea-260nw-46657123.jpg" alt="happy grandma" />
+      )}
+      {room.level === 'level3' && max.userID !== userID && 'Sorry, you lost!!!'}
     </div>
   );
 };
